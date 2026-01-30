@@ -1,0 +1,41 @@
+# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Env files
+.env
+.env.local
+.env.*.local
+
+# Build / Output
+dist/
+build/
+
+# Vite cache
+.vite/
+.vscode/
+.idea/
+
+# Logs
+logs/
+*.log
+*.log.*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE specific
+.vscode/
+.idea/
+
+# Coverage reports
+coverage/
+*.lcov
+
+# Misc
+*.swp
+*.swo

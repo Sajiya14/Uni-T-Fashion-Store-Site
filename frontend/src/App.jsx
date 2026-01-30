@@ -1,34 +1,64 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react'
+import { Route, Routes, useLocation } from 'react-router-dom'
+import { Toaster } from 'sonner'
+import Navbar from './components/NewNavbar'
+import Home from './components/Home'
+import Login from './Layout/login'
+import Signup from './Layout/signup'
+import MyAccount from './components/My Account'
+import Profile from './Layout/profile'
+import Addresses from './Layout/addresses'
+import Orders from './Layout/orders'
+import Wishlists from './Layout/wishlist'
+import MensWear from './components/MensWear'
+import WomansWear from './components/WomansWear'
+import KidsAndBaby from './components/KidsAndBaby'
+import HomeAndLiving from './components/HomeAndLiving'
+import HealthAndBeauty from './components/HealthAndBeauty'
+import ProductDetailsPage from './components/ProductDetailsPage'
+import CartPage from './components/CartPage'
+import { DrawerProvider } from './Context/DrawerContext'
+import CheckoutPage from './components/CheckoutPage'
 
-function App() {
-  const [count, setCount] = useState(0)
+function App () {
+
+  const location = useLocation();
+
+  const hideNavbarRoutes = ["/checkout"];
+  const shouldShowNavbar = !hideNavbarRoutes.includes(location.pathname);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <DrawerProvider>
+      { shouldShowNavbar && <Navbar/>}
+      <Toaster position='top-right'/>
+  
+      <Routes>
+        <Route path='/' element={<Home />}></Route>
+        <Route path='/Login' element={<Login />} ></Route>
+        <Route path='/signup' element={<Signup />} ></Route>
+        <Route path='/cart' element={<CartPage/>}></Route>
+        <Route path='/checkout' element={<CheckoutPage/>}></Route>
+
+        <Route path="/product/:id" element={<ProductDetailsPage />} />
+        <Route path='/men' element={<MensWear/>} />
+        <Route path='/woman'   element={<WomansWear />}> </Route>
+        <Route path='/kids-baby'   element={<KidsAndBaby />}> </Route>
+        <Route path='/home-living'   element={<HomeAndLiving />}> </Route>
+        <Route path='/health-beauty'   element={<HealthAndBeauty />}> </Route>
+        
+        <Route path="/my-account" element={<MyAccount />}>
+          <Route index element={<Profile />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="addresses" element={<Addresses />} />
+          <Route path="orders" element={<Orders />} />
+          <Route path="wishlist" element={<Wishlists />} />
+        </Route>
+        
+      </Routes>
+
+      
+                    
+    </DrawerProvider>
   )
 }
 
